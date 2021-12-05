@@ -1,26 +1,19 @@
 import execAsync from '@helpers/command-async'
 import formatRawUtxos from '@helpers/cardano/format-raw-utxos'
+import { InstanceOptions } from '@models/cardano'
 
-interface IQueryUtxo {
-  address: string
-  network: string
-}
-
-const buildCommand = (options: IQueryUtxo) =>
+const buildCommand = (address: string, instanceOptions: InstanceOptions) =>
   `
-cardano-cli query utxo \
-  --${options.network} \
-  --address ${options.address} \
+${instanceOptions.cliPath} query utxo \
+  --${instanceOptions.network} \
+  --address ${address} \
   --cardano-mode
 `.trim()
 
-const queryUtxo = async (options: IQueryUtxo) => {
-  const command = buildCommand(options)
+const queryUtxo = async (address: string, instanceOptions: InstanceOptions) => {
+  const command = buildCommand(address, instanceOptions)
 
-  const { stderr: error, stdout: utxosRaw } = await execAsync(command)
-  if (error) {
-    throw new Error(error)
-  }
+  const utxosRaw = await execAsync(command)
 
   const utxos = formatRawUtxos(utxosRaw)
   return utxos
