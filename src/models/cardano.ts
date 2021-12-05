@@ -105,7 +105,7 @@ export interface WalletResponse {
   name: string
   paymentAddr: paymentAddress
   stakingAddr: stakingAddress
-  balance: () => any
-  reward: () => any
+  balance: () => Promise<any>
+  reward: () => Promise<any>
   [key: string]: any
 }

@@ -1,5 +1,5 @@
-import queryStakeAddressInfo from '@cardano/query-stake-address-info'
-import queryUtxo from '@cardano/query-utxo'
+import queryStakeAddressInfo from '@commands/query-stake-address-info'
+import queryUtxo from '@commands/query-utxo'
 import getUtxoBalance from '@helpers/cardano/get-utxo-balance'
 import { setKeys } from '@helpers/utils'
 import { InstanceOptions, WalletResponse } from '@models/cardano'

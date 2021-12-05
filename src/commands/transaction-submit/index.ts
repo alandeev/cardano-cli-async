@@ -1,4 +1,4 @@
-import transactionTxid from '@cardano/transaction-tx-id'
+import transactionTxid from '@commands/transaction-tx-id'
 import execAsync from '@helpers/command-async'
 import { InstanceOptions } from '@models/cardano'
 import fs from 'fs'

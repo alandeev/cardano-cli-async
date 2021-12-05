@@ -1,88 +1,97 @@
-import CardanoCLI from '@cardano'
-import { toLovelace } from '@helpers/cardano/balance'
+import { InstanceOptions, TransactionSign, TransactionBuildRaw, TransactionCalculateMinFee } from '@models/cardano'
+import queryProtocolParametersCLI from './commands/query-protocol-parameters'
+import queryStakeAddressInfoCLI from './commands/query-stake-address-info'
+import queryTipCLI from './commands/query-tip'
+import queryUtxoCLI from './commands/query-utxo'
+import transactionBuildRawCLI from './commands/transaction-build-raw'
+import transactionCalculateMinFeeCLI from './commands/transaction-calculate-min-fee'
+import transactionSignCLI from './commands/transaction-sign'
+import transactionSubmitCLI from './commands/transaction-submit'
+import walletCLI from './commands/wallet'
 
-const cardano = new CardanoCLI({
-  network: 'testnet-magic 1097911063',
-  cliPath: 'cardano-cli',
-  dir: './configs',
-  socketPath: '/home/alandev/cardano-src/configs-testnet/db/node.socket'
-})
+class CardanoCLI {
+  private network: string
+  private dir: string
+  private cliPath: string
+  private era: string
+  private protocolParametersPath: string
+  // private shelleyGenesisPath: string
 
-const teste = async () => {
-  const account = '61aaebf111ffcef59fee95d0'
+  constructor(options: InstanceOptions) {
+    this.network = options.network ?? 'testnet-magic 1097911063'
+    this.cliPath = options.cliPath ?? 'cardano-cli'
+    this.dir = options.dir ?? '.'
+    this.era = options.era ?? ''
+    this.protocolParametersPath = options.protocolParametersPath ?? `${options.dir}/tmp/protocolParams.json`
+    // this.shelleyGenesisPath = options.shelleyGenesisPath ?? ''
 
-  // const receiver = 'addr_test1qqr585tvlc7ylnqvz8pyqwauzrdu0mxag3m7q56grgmgu7sxu2hyfhlkwuxupa9d5085eunq2qywy7hvmvej456flknswgndm3'
-
-  const sender = cardano.wallet(account)
-  const { utxos, value } = await sender.balance()
-
-  console.log({
-    value
-  })
-
-  const transferAmountADA = 3
-
-  console.log(utxos)
-  const receiver = 'addr_test1qzjlc05tyyw264wy7m4u7np5yqdwglks0xhu6765cl4qex9r9kvav4hmznru9px9n7cpa2hmmv4593eegve3t834xppqwskp4t'
-
-  // create raw transaction
-  let txInfo = {
-    txIn: (await cardano.queryUtxo(sender.paymentAddr)) as any,
-    txOut: [
-      {
-        address: sender.paymentAddr,
-        value: {
-          lovelace: (await sender.balance()).value.lovelace - toLovelace(5)
-        }
-      },
-      { address: receiver, value: { lovelace: toLovelace(5) } } //value going to receiver
-    ]
+    this.loadEnvs({
+      CARDANO_NODE_SOCKET_PATH: options.socketPath as string
+    })
   }
 
-  // const txInfo = {
-  //   txIn: [...utxos],
-  //   txOut: [
-  //     {
-  //       address: receiver,
-  //       value
-  //     }
-  //   ],
-  //   witnessCount: 1
-  // }
+  private loadEnvs(envs: Record<string, string>) {
+    for (let [key, value] of Object.entries(envs)) {
+      if (value) {
+        process.env[key] = value
+      }
+    }
+  }
 
-  const raw = await cardano.transactionBuildRaw(txInfo)
+  private getConfig() {
+    return {
+      network: this.network,
+      cliPath: this.cliPath,
+      dir: this.dir,
+      era: this.era,
+      protocolParametersPath: this.protocolParametersPath
+    }
+  }
 
-  console.log(raw)
+  public queryUtxo(wallet_address: string) {
+    const instanceOptions = this.getConfig()
+    return queryUtxoCLI(wallet_address, instanceOptions)
+  }
 
-  const fee = await cardano.transactionCalculateMinFee({
-    ...txInfo,
-    txBody: raw,
-    witnessCount: 1
-  })
+  public queryTip() {
+    const instanceOptions = this.getConfig()
+    return queryTipCLI(instanceOptions)
+  }
 
-  txInfo.txOut[0].value.lovelace -= fee
+  public queryProtocolParameters() {
+    const instanceOptions = this.getConfig()
+    return queryProtocolParametersCLI(instanceOptions)
+  }
 
-  const tx = await cardano.transactionBuildRaw({
-    ...txInfo,
-    fee
-  })
+  public transactionBuildRaw(options: TransactionBuildRaw) {
+    const instanceOptions = this.getConfig()
+    return transactionBuildRawCLI(options, instanceOptions)
+  }
 
-  const txSigned = await cardano.transactionSign({
-    txBody: tx,
-    signingKeys: [sender.payment.skey]
-  })
+  public queryStakeAddressInfo(stake_address: string) {
+    const instanceOptions = this.getConfig()
+    return queryStakeAddressInfoCLI(stake_address, instanceOptions)
+  }
 
-  console.log({
-    txSigned
-  })
+  public wallet(account: string) {
+    const instanceOptions = this.getConfig()
+    return walletCLI(account, instanceOptions)
+  }
 
-  const hashTx = await cardano.transactionSubmit(txSigned)
+  public transactionCalculateMinFee(options: TransactionCalculateMinFee) {
+    const instanceOptions = this.getConfig()
+    return transactionCalculateMinFeeCLI(options, instanceOptions)
+  }
 
-  console.log({ hashTx })
+  public transactionSign(options: TransactionSign) {
+    const instanceOptions = this.getConfig()
+    return transactionSignCLI(options, instanceOptions)
+  }
+
+  public transactionSubmit(tx: object | string) {
+    const instanceOptions = this.getConfig()
+    return transactionSubmitCLI(tx, instanceOptions)
+  }
 }
 
-teste()
-  .then()
-  .catch((error) => {
-    console.log(error)
-  })
+export default CardanoCLI

@@ -1,4 +1,4 @@
-import queryProtocolParameters from '@cardano/query-protocol-parameters'
+import queryProtocolParameters from '@commands/query-protocol-parameters'
 import execAsync from '@helpers/command-async'
 import { InstanceOptions, TransactionCalculateMinFee } from '@models/cardano'
 
