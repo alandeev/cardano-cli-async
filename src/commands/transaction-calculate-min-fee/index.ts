@@ -1,6 +1,6 @@
-import queryProtocolParameters from '@commands/query-protocol-parameters'
-import execAsync from '@helpers/command-async'
-import { InstanceOptions, TransactionCalculateMinFee } from '@models/cardano'
+import queryProtocolParameters from '../../commands/query-protocol-parameters'
+import execAsync from '../../helpers/command-async'
+import { InstanceOptions, TransactionCalculateMinFee } from '../../models/cardano'
 
 const formatResponse = (data: any) => data.toString().replace(/\s+/g, ' ').split(' ')[0]
 

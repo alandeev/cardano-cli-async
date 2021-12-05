@@ -1,4 +1,4 @@
-import { jsonToPath } from '@helpers/utils'
+import { jsonToPath } from '../../helpers/utils'
 
 const certToString = (dir, certList) => {
   let result = ''

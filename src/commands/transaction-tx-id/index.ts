@@ -1,5 +1,5 @@
-import execAsync from '@helpers/command-async'
-import { InstanceOptions } from '@models/cardano'
+import execAsync from '../../helpers/command-async'
+import { InstanceOptions } from '../../models/cardano'
 
 const buildCommand = (options, instanceOptions: InstanceOptions) =>
   `

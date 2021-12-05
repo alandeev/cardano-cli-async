@@ -1,6 +1,6 @@
-import execAsync from '@helpers/command-async'
-import formatRawUtxos from '@helpers/cardano/format-raw-utxos'
-import { InstanceOptions } from '@models/cardano'
+import execAsync from '../../helpers/command-async'
+import formatRawUtxos from '../../helpers/cardano/format-raw-utxos'
+import { InstanceOptions } from '../../models/cardano'
 
 const buildCommand = (address: string, instanceOptions: InstanceOptions) =>
   `

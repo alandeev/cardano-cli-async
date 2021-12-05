@@ -1,4 +1,4 @@
-import { jsonToPath } from '@helpers/utils'
+import { jsonToPath } from '../../helpers/utils'
 
 const txInToString = (dir, txInList, isCollateral) => {
   let result = ''

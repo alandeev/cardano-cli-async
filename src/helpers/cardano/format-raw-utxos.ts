@@ -1,5 +1,5 @@
-import { removeEmptyValues } from '@helpers/utils'
-import { Utxo } from '@models/cardano'
+import { removeEmptyValues } from '../../helpers/utils'
+import { Utxo } from '../../models/cardano'
 
 const formatUtxo = (rawUtxo: string): Utxo => {
   const [txHash, txId, ...restOptions] = rawUtxo.replace(/\s+/g, ' ').split(' ')

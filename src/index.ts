@@ -1,4 +1,4 @@
-import { InstanceOptions, TransactionSign, TransactionBuildRaw, TransactionCalculateMinFee } from '@models/cardano'
+import { InstanceOptions, TransactionSign, TransactionBuildRaw, TransactionCalculateMinFee } from './models/cardano'
 import queryProtocolParametersCLI from './commands/query-protocol-parameters'
 import queryStakeAddressInfoCLI from './commands/query-stake-address-info'
 import queryTipCLI from './commands/query-tip'

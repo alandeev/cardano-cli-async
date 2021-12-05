@@ -1,4 +1,4 @@
-import { jsonToPath } from '@helpers/utils'
+import { jsonToPath } from '../../helpers/utils'
 
 const mintToString = (dir, minting) => {
   let result = `--mint="`
@@ -24,7 +24,7 @@ const mintToString = (dir, minting) => {
       if (usedScripts.includes(script)) return ''
       usedScripts.push(script)
 
-      return `--minting-script-file ${script} ${mint.datum ? `--tx-in-script-datum-value '${JSON.stringify(mint.datum)}' ` : ''} 
+      return `--minting-script-file ${script} ${mint.datum ? `--tx-in-script-datum-value '${JSON.stringify(mint.datum)}' ` : ''}
       ${mint.redeemer ? `--tx-in-script-redeemer-value '${JSON.stringify(mint.redeemer)}' ` : ''}
       ${mint.executionUnits ? `--tx-in-execution-units "(${mint.executionUnits[0] + ',' + mint.executionUnits[1]}})" ` : ''}`
     })

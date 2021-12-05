@@ -3,6 +3,7 @@
     "target": "ES2020",
     "lib": ["ES2020", "es2020.bigint", "es2020.string", "es2020.symbol.wellknown"],
     "module": "commonjs",
+    "moduleResolution": "node",
     "declaration": true,
     "outDir": "./lib",
     "strict": true,
@@ -10,13 +11,10 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "baseUrl": ".",
-    "paths": {
-      "@*": ["src/*"],
-      "@errors": ["src/errors/*"]
-    },
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "sourceMap": true
   },
-  "include": ["src/**/*"]
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules"]
 }

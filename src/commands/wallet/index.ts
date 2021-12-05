@@ -1,8 +1,8 @@
-import queryStakeAddressInfo from '@commands/query-stake-address-info'
-import queryUtxo from '@commands/query-utxo'
-import getUtxoBalance from '@helpers/cardano/get-utxo-balance'
-import { setKeys } from '@helpers/utils'
-import { InstanceOptions, WalletResponse } from '@models/cardano'
+import queryStakeAddressInfo from '../../commands/query-stake-address-info'
+import queryUtxo from '../../commands/query-utxo'
+import getUtxoBalance from '../../helpers/cardano/get-utxo-balance'
+import { setKeys } from '../../helpers/utils'
+import { InstanceOptions, WalletResponse } from '../../models/cardano'
 import fs from 'fs'
 
 const reward = async (stakingAddr: string, instanceOptions: InstanceOptions) => {

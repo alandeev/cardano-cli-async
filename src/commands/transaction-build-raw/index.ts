@@ -1,13 +1,13 @@
-import queryTip from '@commands/query-tip'
-import auxScriptToString from '@helpers/cardano/aux-script-to-string'
-import certToString from '@helpers/cardano/cert-to-string'
-import mintToString from '@helpers/cardano/mint-to-string'
-import txInToString from '@helpers/cardano/tx-in-to-string'
-import txOutToString from '@helpers/cardano/tx-out-to-string'
-import withdrawalToString from '@helpers/cardano/withdraw-to-string'
-import execAsync from '@helpers/command-async'
-import { jsonToPath } from '@helpers/utils'
-import { InstanceOptions, TransactionBuildRaw } from '@models/cardano'
+import queryTip from '../../commands/query-tip'
+import auxScriptToString from '../../helpers/cardano/aux-script-to-string'
+import certToString from '../../helpers/cardano/cert-to-string'
+import mintToString from '../../helpers/cardano/mint-to-string'
+import txInToString from '../../helpers/cardano/tx-in-to-string'
+import txOutToString from '../../helpers/cardano/tx-out-to-string'
+import withdrawalToString from '../../helpers/cardano/withdraw-to-string'
+import execAsync from '../../helpers/command-async'
+import { jsonToPath } from '../../helpers/utils'
+import { InstanceOptions, TransactionBuildRaw } from '../../models/cardano'
 
 const buildCommand = (options: any, instanceOptions: InstanceOptions) =>
   `${instanceOptions.cliPath} transaction build-raw \

@@ -1,4 +1,4 @@
-import { Utxo } from '@models/cardano'
+import { Utxo } from '../../models/cardano'
 
 interface BalanceResponse {
   lovelace: number

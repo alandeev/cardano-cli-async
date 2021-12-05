@@ -1,6 +1,6 @@
-import execAsync from '@helpers/command-async'
-import { signingKeysToString } from '@helpers/utils'
-import { InstanceOptions, TransactionSign } from '@models/cardano'
+import execAsync from '../../helpers/command-async'
+import { signingKeysToString } from '../../helpers/utils'
+import { InstanceOptions, TransactionSign } from '../../models/cardano'
 
 const buildCommand = (options: any, instanceOptions: InstanceOptions) => {
   return `${instanceOptions.cliPath} transaction sign \

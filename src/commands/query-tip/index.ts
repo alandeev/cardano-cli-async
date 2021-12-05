@@ -1,4 +1,4 @@
-import execAsync from '@helpers/command-async'
+import execAsync from '../../helpers/command-async'
 
 const buildCommand = (instanceOptions) =>
   `${instanceOptions.cliPath} query tip \
