@@ -1,0 +1,38 @@
+{
+  "name": "cardano-cli-async",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "debug": "export CARDANO_NODE_SOCKET_PATH=$HOME/cardano-src/configs-testnet/db/node.socket && tsnd -r tsconfig-paths/register --exit-child --transpile-only --respawn --ignore-watch node_modules src/cardano/index.ts",
+    "dev": "export NODE_ENV=development && tsnd -r tsconfig-paths/register --exit-child --transpile-only --respawn --ignore-watch node_modules",
+    "dev:debug": "export NODE_ENV=development && tsnd -r tsconfig-paths/register --exit-child --transpile-only --respawn --ignore-watch node_modules",
+    "format-prettier": "prettier --config .prettierrc 'src/**/*.ts' --write"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hopevel/cardano-cli-async.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Hopevel/cardano-cli-async/issues"
+  },
+  "homepage": "https://github.com/Hopevel/cardano-cli-async#readme",
+  "devDependencies": {
+    "@types/node": "^16.11.11",
+    "@typescript-eslint/eslint-plugin": "^5.5.0",
+    "eslint": "^8.4.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "prettier": "^2.5.1",
+    "ts-node": "^10.4.0",
+    "ts-node-dev": "^1.1.8",
+    "tsconfig-paths": "^3.12.0",
+    "typescript": "^4.5.2"
+  },
+  "dependencies": {
+    "custom-env": "^2.0.1"
+  }
+}
