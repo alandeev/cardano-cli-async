@@ -2,7 +2,7 @@ import queryStakeAddressInfo from '@cardano/query-stake-address-info'
 import queryUtxo from '@cardano/query-utxo'
 import getUtxoBalance from '@helpers/cardano/get-utxo-balance'
 import { setKeys } from '@helpers/utils'
-import { InstanceOptions } from '@models/cardano'
+import { InstanceOptions, WalletResponse } from '@models/cardano'
 import fs from 'fs'
 
 const reward = async (stakingAddr: string, instanceOptions: InstanceOptions) => {
@@ -34,7 +34,7 @@ const wallet = (account: string, instanceOptions: InstanceOptions) => {
 
   const files = fs.readdirSync(`${instanceOptions.dir}/priv/wallet/${account}`)
 
-  const keysPath = {}
+  const keysPath: Record<string, any> = {}
 
   for (let file of files) {
     const fileSplited = file.split('.')
@@ -45,7 +45,7 @@ const wallet = (account: string, instanceOptions: InstanceOptions) => {
   const getBalance = () => balance(paymentAddr, instanceOptions)
   const getReward = () => reward(stakingAddr, instanceOptions)
 
-  return {
+  const response: WalletResponse = {
     name: account,
     paymentAddr,
     stakingAddr,
@@ -53,6 +53,8 @@ const wallet = (account: string, instanceOptions: InstanceOptions) => {
     reward: getReward,
     ...keysPath
   }
+
+  return response
 }
 
 export default wallet

@@ -3,7 +3,7 @@ import { jsonToPath } from '@helpers/utils'
 const txInToString = (dir, txInList, isCollateral) => {
   let result = ''
   for (let txIn of txInList) {
-    result += `--tx-in${isCollateral ? '-collateral' : ''} ${txIn.txHash}#${txIn.txId} `
+    result += `--tx-in${isCollateral ? '-collateral' : ''} "${txIn.txHash}#${txIn.txId}" `
 
     if (txIn.script) {
       result += `--tx-in-script-file ${jsonToPath(dir, txIn.script)} `

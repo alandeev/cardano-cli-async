@@ -11,7 +11,7 @@ const getUtxoBalance = (utxo: Utxo) => {
 
   for (let [key, value] of values) {
     if (!objectResult[key]) {
-      objectResult[key] = value
+      objectResult[key] = 0
     }
 
     objectResult[key] += value

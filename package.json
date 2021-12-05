@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "debug": "export CARDANO_NODE_SOCKET_PATH=$HOME/cardano-src/configs-testnet/db/node.socket && tsnd -r tsconfig-paths/register --exit-child --transpile-only --respawn --ignore-watch node_modules src/cardano/index.ts",
+    "debug": "export CARDANO_NODE_SOCKET_PATH=$HOME/cardano-src/configs-testnet/db/node.socket && tsnd -r tsconfig-paths/register --exit-child --transpile-only --respawn --ignore-watch node_modules src/index.ts",
     "dev": "export NODE_ENV=development && tsnd -r tsconfig-paths/register --exit-child --transpile-only --respawn --ignore-watch node_modules",
-    "dev:debug": "export NODE_ENV=development && tsnd -r tsconfig-paths/register --exit-child --transpile-only --respawn --ignore-watch node_modules",
+    "dev:debug": "export NODE_ENV=development && tsnd -r tsconfig-paths/register --exit-child --transpile-only --respawn --ignore-watch node_modules src/index.ts",
     "format-prettier": "prettier --config .prettierrc 'src/**/*.ts' --write"
   },
   "repository": {

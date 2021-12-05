@@ -29,3 +29,13 @@ export const setKeys = (obj, path, value) => {
 
   obj[pList[len - 1]] = value
 }
+
+export const signingKeysToString = (signingKeys: string[]) => {
+  let result = ''
+
+  for (let signingKey of signingKeys) {
+    result += `--signing-key-file ${signingKey} `
+  }
+
+  return result
+}

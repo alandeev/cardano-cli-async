@@ -1,3 +1,8 @@
+type lovelace = number
+type path = string
+type paymentAddress = string
+type stakingAddress = string
+
 interface ValueUtxo {
   lovelace: lovelace
   [key: string]: number
@@ -17,10 +22,8 @@ export interface InstanceOptions {
   era?: string
   socketPath?: string
   protocolParametersPath?: string
+  shelleyGenesisPath?: string
 }
-
-type lovelace = number
-type path = string
 
 export type TxIn = {
   txHash: string
@@ -91,4 +94,18 @@ export interface TransactionCalculateMinFee {
   txOut: TxOut[]
   witnessCount: number
   protocolParametersPath?: path
+}
+
+export interface TransactionSign {
+  txBody: path
+  signingKeys: paymentAddress[]
+}
+
+export interface WalletResponse {
+  name: string
+  paymentAddr: paymentAddress
+  stakingAddr: stakingAddress
+  balance: () => any
+  reward: () => any
+  [key: string]: any
 }
