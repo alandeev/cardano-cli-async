@@ -1,10 +1,6 @@
 {
   "name": "cardano-cli-async",
-  "version": "1.0.1",
-  "publishConfig": {
-    "access": "restricted",
-    "tag": "hopevel"
-  },
+  "version": "1.0.2",
   "description": "Library to manage cardano-cli with typescript easily",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
