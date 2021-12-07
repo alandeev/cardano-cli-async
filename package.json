@@ -1,6 +1,6 @@
 {
   "name": "cardano-cli-async",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Library to manage cardano-cli with typescript easily",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
