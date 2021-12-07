@@ -15,11 +15,10 @@ const buildCommand = (options: TransactionCalculateMinFee, instanceOptions: Inst
 `.trim()
 
 const transactionCalculateMinFee = async (options: TransactionCalculateMinFee, instanceOptions: InstanceOptions) => {
-  await queryProtocolParameters(instanceOptions)
-
-  console.log({
-    instanceOptions
-  })
+  if (!options.protocolParametersPath) {
+    const pathProtocolParameters = await queryProtocolParameters(instanceOptions)
+    options.protocolParametersPath = pathProtocolParameters
+  }
 
   const command = buildCommand(options, instanceOptions)
 
