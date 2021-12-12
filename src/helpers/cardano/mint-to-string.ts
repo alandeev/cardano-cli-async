@@ -1,6 +1,6 @@
 import { jsonToPath } from '../../helpers/utils'
 
-const mintToString = (dir, minting) => {
+const mintToString = async (dir, minting) => {
   let result = `--mint="`
 
   for (let mint of minting) {
@@ -18,17 +18,15 @@ const mintToString = (dir, minting) => {
   result += `" `
   const usedScripts: string[] = []
 
-  result += minting
-    .map((mint) => {
-      const script = jsonToPath(dir, mint.script)
-      if (usedScripts.includes(script)) return ''
-      usedScripts.push(script)
+  for (let mint of minting) {
+    const script = await jsonToPath(dir, mint.script)
+    if (usedScripts.includes(script)) continue
+    usedScripts.push(script)
 
-      return `--minting-script-file ${script} ${mint.datum ? `--tx-in-script-datum-value '${JSON.stringify(mint.datum)}' ` : ''}
-      ${mint.redeemer ? `--tx-in-script-redeemer-value '${JSON.stringify(mint.redeemer)}' ` : ''}
-      ${mint.executionUnits ? `--tx-in-execution-units "(${mint.executionUnits[0] + ',' + mint.executionUnits[1]}})" ` : ''}`
-    })
-    .join(' ')
+    result += `--minting-script-file ${script} ${mint.datum ? `--tx-in-script-datum-value '${JSON.stringify(mint.datum)}' ` : ''}
+    ${mint.redeemer ? `--tx-in-script-redeemer-value '${JSON.stringify(mint.redeemer)}' ` : ''}
+    ${mint.executionUnits ? `--tx-in-execution-units "(${mint.executionUnits[0] + ',' + mint.executionUnits[1]}})" ` : ''}`
+  }
 
   return result
 }

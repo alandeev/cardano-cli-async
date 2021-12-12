@@ -1,4 +1,4 @@
-import { InstanceOptions, TransactionSign, TransactionBuildRaw, TransactionCalculateMinFee } from './models/cardano'
+import { InstanceOptions, TransactionSign, TransactionBuildRaw, TransactionCalculateMinFee, IAddressBuild } from './models/cardano'
 import queryProtocolParametersCLI from './commands/query-protocol-parameters'
 import queryStakeAddressInfoCLI from './commands/query-stake-address-info'
 import queryTipCLI from './commands/query-tip'
@@ -8,6 +8,10 @@ import transactionCalculateMinFeeCLI from './commands/transaction-calculate-min-
 import transactionSignCLI from './commands/transaction-sign'
 import transactionSubmitCLI from './commands/transaction-submit'
 import walletCLI from './commands/wallet'
+import addressKeyGenCLI from './commands/address-key-gen'
+import stakeAddressKeyGenCLI from './commands/stake-address-key-gen'
+import stakeAddressBuildCLI from './commands/stake-address-build'
+import addressBuildCLI from './commands/address-build'
 
 class CardanoCLI {
   private network: string
@@ -17,7 +21,7 @@ class CardanoCLI {
   private protocolParametersPath: string
   // private shelleyGenesisPath: string
 
-  constructor(options: InstanceOptions) {
+  constructor(options: Partial<InstanceOptions>) {
     this.network = options.network ?? 'testnet-magic 1097911063'
     this.cliPath = options.cliPath ?? 'cardano-cli'
     this.dir = options.dir ?? '.'
@@ -91,6 +95,26 @@ class CardanoCLI {
   public transactionSubmit(tx: object | string) {
     const instanceOptions = this.getConfig()
     return transactionSubmitCLI(tx, instanceOptions)
+  }
+
+  public addressKeyGen(account: string) {
+    const instanceOptions = this.getConfig()
+    return addressKeyGenCLI(account, instanceOptions)
+  }
+
+  public stakeAddressKeyGen(account: string) {
+    const instanceOptions = this.getConfig()
+    return stakeAddressKeyGenCLI(account, instanceOptions)
+  }
+
+  public stakeAddressBuild(account: string) {
+    const instanceOptions = this.getConfig()
+    return stakeAddressBuildCLI(account, instanceOptions)
+  }
+
+  public addressBuild(options: IAddressBuild) {
+    const instanceOptions = this.getConfig()
+    return addressBuildCLI(options, instanceOptions)
   }
 }
 

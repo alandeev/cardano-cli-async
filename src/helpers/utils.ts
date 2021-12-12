@@ -1,5 +1,5 @@
 import { randomUUID } from 'crypto'
-import fs from 'fs'
+import fs from 'fs/promises'
 
 export const removeEmptyValues = <T = any>(obj: any): T => {
   Object.keys(obj).forEach((key) => {
@@ -11,11 +11,14 @@ export const removeEmptyValues = <T = any>(obj: any): T => {
   return obj
 }
 
-export const jsonToPath = (dir, json, type = 'script') => {
+export const jsonToPath = async (dir, json, type = 'script') => {
   let uniqueId = randomUUID()
 
-  fs.writeFileSync(`${dir}/tmp/${type}_${uniqueId}.json`, JSON.stringify(json))
-  return `${dir}/tmp/${type}_${uniqueId}.json`
+  const file = `${dir}/tmp/${type}_${uniqueId}.json`
+  const body = JSON.stringify(json)
+
+  await fs.writeFile(file, body)
+  return file
 }
 
 export const setKeys = (obj, path, value) => {
@@ -38,4 +41,15 @@ export const signingKeysToString = (signingKeys: string[]) => {
   }
 
   return result
+}
+
+export const fileExists = async (files: string[]) => {
+  for (let file of files) {
+    const fileExist = await fs.readFile(file).catch(() => false)
+    if (fileExist) {
+      throw new Error(`Already exist this file ${file}`)
+    }
+  }
+
+  return files
 }

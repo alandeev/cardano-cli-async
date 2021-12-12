@@ -16,12 +16,12 @@ export interface Utxo {
 }
 
 export interface InstanceOptions {
-  network?: string
-  cliPath?: string
-  dir?: string
-  era?: string
-  socketPath?: string
+  network: string
+  cliPath: string
+  dir: string
+  era: string
   protocolParametersPath?: string
+  socketPath?: string
   shelleyGenesisPath?: string
 }
 
@@ -108,4 +108,12 @@ export interface WalletResponse {
   balance: () => Promise<any>
   reward: () => Promise<any>
   [key: string]: any
+}
+
+export interface IAddressBuild {
+  account: string
+  paymeny_vkey?: string
+  stake_vkey?: string
+  payment_script?: any
+  stake_script?: any
 }
