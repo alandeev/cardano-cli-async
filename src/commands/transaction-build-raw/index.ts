@@ -31,11 +31,11 @@ const transactionBuildRaw = async (options: TransactionBuildRaw, instanceOptions
   const txInString = txInToString(instanceOptions.dir, options.txIn, false)
   const txOutString = txOutToString(options.txOut)
   const txInCollateralString = options.txInCollateral ? txInToString(instanceOptions.dir, options.txInCollateral, true) : ''
-  const mintString = options.mint ? mintToString(instanceOptions.dir, options.mint) : ''
+  const mintString = options.mint ? await mintToString(instanceOptions.dir, options.mint) : ''
   const withdrawals = options.withdrawals ? withdrawalToString(instanceOptions.dir, options.withdrawals) : ''
   const certs = options.certs ? certToString(instanceOptions.dir, options.certs) : ''
-  const metadata = options.metadata ? '--metadata-json-file ' + jsonToPath(instanceOptions.dir, options.metadata, 'metadata') : ''
-  const auxScript = options.auxScript ? auxScriptToString(instanceOptions.dir, options.auxScript) : ''
+  const metadata = options.metadata ? '--metadata-json-file ' + (await jsonToPath(instanceOptions.dir, options.metadata, 'metadata')) : ''
+  const auxScript = options.auxScript ? await auxScriptToString(instanceOptions.dir, options.auxScript) : ''
   const scriptInvalid = options.scriptInvalid ? '--script-invalid' : ''
   const tip = await queryTip(instanceOptions)
 
