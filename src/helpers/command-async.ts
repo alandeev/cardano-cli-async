@@ -8,12 +8,12 @@ const execAsync = async (command: string): Promise<any> =>
     return execPromise(command)
       .then(({ stdout, stderr }) => {
         if (stderr) {
-          return reject(stderr)
+          throw new Error(stderr)
         }
 
         return resolve(stdout)
       })
-      .catch((error) => reject(error?.message || 'System crashed'))
+      .catch((error) => reject(error))
   })
 
 export default execAsync
