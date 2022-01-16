@@ -4,13 +4,16 @@ import { promisify } from 'util'
 const execPromise = promisify(exec)
 
 const execAsync = async (command: string): Promise<any> =>
-  new Promise(async (resolve, reject) => {
-    const { stdout, stderr } = await execPromise(command)
-    if (stderr) {
-      return reject(stderr)
-    }
+  new Promise((resolve, reject) => {
+    return execPromise(command)
+      .then(({ stdout, stderr }) => {
+        if (stderr) {
+          return reject(stderr)
+        }
 
-    return resolve(stdout)
+        return resolve(stdout)
+      })
+      .catch((error) => reject(error?.message || 'System crashed'))
   })
 
 export default execAsync
